@@ -229,6 +229,8 @@ section form input,
 section form textarea {
   border: 2px solid #e3e3e3;
   border-radius: 0.3em;
+  -webkit-transition: border-color 0.15s ease-in;
+  transition: border-color 0.15s ease-in;
 }
 
 section h3 {
@@ -321,7 +323,7 @@ section .social a:hover {
   visibility: hidden;
 }
 
-.backdrop[show] {
+.backdrop[open] {
   visibility: visible;
 }
 
@@ -341,12 +343,12 @@ section .social a:hover {
   visibility: hidden;
 }
 
-.modal[show] {
+.modal[open] {
   -webkit-animation: opening 0.4s ease-out forwards;
           animation: opening 0.4s ease-out forwards;
 }
 
-.modal[hide] {
+.modal[close] {
   -webkit-animation: closing 0.4s ease-out forwards;
           animation: closing 0.4s ease-out forwards;
 }

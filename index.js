@@ -1,6 +1,5 @@
 //********************************************************************************************************************************************* */
 //*************************************************** checking form validity on submit ******************************************************* */
-const form = document.querySelector("#contact-form");
 
 // functie pt validarea input-ului text
 const isEmpty = (value) => value == null || value === "";
@@ -17,7 +16,7 @@ const setError = (errorData) => {
 
   // 🢣 adaug mesaj in element
   errorElement.innerHTML = errorData.message;
-  // 🢣 adaug clasa error
+  // 🢣 adaug clasa error 🢣 o alta varianta era sa folosesc .classList 🢣 .add(), .remove(), .contains(), .toggle()
   formControl.className = "form-control error";
 
   return false;
@@ -30,11 +29,22 @@ const setSuccess = (input) => {
   return true;
 };
 
-const checkFormValidity = () => {
+// functie pt preluarea inputurilor 🢣 am creat-o dupa, pt a evita duplicarea codului din reset...
+const getInputs = () => {
   const name = document.getElementById("name");
   const email = document.getElementById("email");
   const subject = document.getElementById("subject");
   const textarea = document.getElementById("textarea");
+
+  return { name, email, subject, textarea };
+};
+
+const checkFormValidity = () => {
+  // const name = document.getElementById("name");
+  // const email = document.getElementById("email");
+  // const subject = document.getElementById("subject");
+  // const textarea = document.getElementById("textarea");
+  const { name, email, subject, textarea } = getInputs();
 
   let nameIsValid;
   let emailIsValid;
@@ -81,6 +91,42 @@ const checkFormValidity = () => {
   return formIsValid;
 };
 
+// functie pt a deschide/inchide modalul
+const changeModal = (option) => {
+  const backdrop = document.querySelector(".backdrop");
+  const modal = document.querySelector(".modal");
+
+  switch (option) {
+    case "OPEN":
+      backdrop.setAttribute("open", "");
+      modal.removeAttribute("close");
+      modal.setAttribute("open", "");
+      break;
+    case "CLOSE":
+      backdrop.removeAttribute("open");
+      modal.removeAttribute("open");
+      modal.setAttribute("close", "");
+      break;
+    default:
+      return;
+  }
+};
+
+// functie pt resetarea formularului
+const resetForm = () => {
+  const inputs = getInputs();
+
+  //parcurg obiectul cu inputuri
+  for (let key in inputs) {
+    // si resetez valoarea lor
+    inputs[key].value = "";
+    // inlatur clasa 'success' de pe div-ul parinte 'form-control'
+    inputs[key].parentElement.classList.remove("success");
+  }
+};
+
+const form = document.querySelector("#contact-form");
+
 // 🢣 event listener pe formular
 form.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -89,22 +135,27 @@ form.addEventListener("submit", function (event) {
 
   if (!formIsValid) {
     console.log("Form is not valid!");
+    return;
   }
 
-  const backdrop = document.querySelector(".backdrop");
-  const modal = document.querySelector(".modal");
-  backdrop.setAttribute("show", "");
-  modal.removeAttribute("hide");
-  modal.setAttribute("show", "");
+  changeModal("OPEN");
 });
 
 const modalButton = document.getElementById("modal-action");
 
 modalButton.addEventListener("click", (event) => {
-  const backdrop = document.querySelector(".backdrop");
-  const modal = document.querySelector(".modal");
+  changeModal("CLOSE");
 
-  backdrop.removeAttribute("show");
-  modal.removeAttribute("show");
-  modal.setAttribute("hide", "");
+  // pot redirectiona catre alta pagina
+
+  resetForm();
+});
+
+const backdropModal = document.querySelector(".backdrop");
+
+backdropModal.addEventListener("click", (event) => {
+  changeModal("CLOSE");
+
+  //resetez formularul
+  resetForm();
 });
