@@ -1,0 +1,216 @@
+
+$background_colors:(
+    header: #EEE,
+    main: #FFF,
+    form: #F5F5F5,
+    submit_btnOff: #428BCA,
+    submit_btnOn: #FFF
+);
+$text_colors:(
+    title: #333,
+    sub_title: #999,
+    labels: #333,
+    submit_btnOff: #FFF,
+    submit_btnOn: #428BCA,
+    socials: #428BCA,
+    placeholder: #999,
+    replace: #428BCA
+);
+$border_color: #E3E3E3;
+
+@mixin media-big{                              // pentru a o folosi aici, in interiorul elementelor
+    @media screen and (min-width: 767px){
+        @content;
+    }
+}
+
+// pentru a usura apelarea unei culori....
+@function bkg_color($key){
+    @return map-get($background_colors, $key)
+};
+
+@function text_color($key){
+    @return map-get($text-colors, $key)
+};
+
+
+@mixin flex_dir($direction){
+    display: flex;
+    flex-direction: $direction;
+}
+
+html{
+    box-sizing: border-box;
+}
+
+*, *::before, *::after{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: inherit;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.details > div, .message{
+    @include flex_dir(column);
+    
+}
+.split {                              // *** Clasa utilitara pt a beneficia de puterea flex cu coloane dimensionate in mod egal 
+    @include flex_dir(column);
+
+    > * {
+        flex: 1;
+    }
+
+    @include media-big{
+        @include flex_dir(row);
+    }
+}
+.container {                          // *** pentru a delimita intregul continut 
+    margin: 0 auto;
+    width: MIN(94%, 1350px);
+}
+
+h1, h2, h3 {
+    font-weight: 500;
+}
+
+.header {
+    background: bkg_color(header);
+    padding: .5rem 0;
+    
+    .container {
+        // margin: 2rem;   // posibil sa-l modific aici pentru a mari paddingul in stanga ..sau o varianta ..
+    }
+
+    @include media-big{
+        // min-height: 180px;
+        min-height: 17vmin;
+        @include flex_dir(row);
+        align-items: center;
+        h1, h2{
+            display: inline-block;
+        }
+    }
+
+    h1 {
+        font-size: ClamP(2.8rem, 4.5vw, 4.5rem);
+        color: text_color(title);
+    }
+
+    h2 {
+        font-size: ClamP(1.8rem, 2.8vw, 2.8rem);
+        color: text_color(sub_title);
+        margin: .2em .4em;
+    }
+}
+
+section {
+
+    form {
+        margin: 1.7em auto;
+        max-width: 900px;
+        background: bkg_color(form);
+
+        > div {
+            margin: .5em;
+
+            @include media-big{
+                &:first-of-type{
+                    // margin-right: 1.5em;
+                    padding-right: 1.5em;
+                }
+            }
+            > div{
+                margin-bottom: .9em;
+            }
+        }
+        label {
+            margin-bottom: .3em;
+            font-weight: 600;
+            font-size: 1rem;
+            color: text_color(labels);
+        }
+        input, textarea {
+            padding: .6rem 1rem;
+            outline: none;
+            color: text_color(replace);
+            font-size: 1rem;
+        }
+
+        input::placeholder, textarea::placeholder {
+            // font-weight: 600;
+            font-size: 1rem;
+            color: text_color(placeholder);
+        }
+
+        &, input, textarea {
+            border: 2px solid $border_color;
+            border-radius: .3em;
+        }
+
+    }
+    h3 {
+        text-align: center;
+        // font-size: 1.4rem;
+        font-size: ClamP(1.2rem, 2.5vw, 1.4rem);
+    }
+    .social {
+        margin:.2rem auto;
+        max-width: 450px;
+        @include flex_dir(row);
+        justify-content: space-between;
+        padding-top: 1em;
+        border-top: 1px solid $border_color;
+
+        a {
+            color: text_color(socials);
+            position: relative;
+            transition: color .2s ease;
+
+            &::before {
+                content: '';
+                position: absolute;
+                width: 150%;
+                height: 150%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: bkg_color(submit_btnOff);
+                border-radius: 1em;
+                z-index: -1;
+                transition: opacity .2s ease;
+                opacity: 0;
+            }
+
+            &:hover::before {
+                opacity: 1
+            }
+            &:hover {
+                color: text_color(submit_btnOff);
+            }
+        }
+    }
+}
+
+#submit_btn{
+    margin: 1.1em 0 0 auto;
+    padding: .5em .8em;
+    font-size: 1rem;
+    color: text_color(submit_btnOff);
+    background: bkg_color(submit_btnOff);
+    border: 2px solid bkg_color(submit_btnOff);
+    outline: none;
+    border-radius: .3em;
+    cursor: pointer;
+    transition: all .13s cubic-bezier(0, 0, 0.8, 1.31);
+
+    &:hover, &:focus {
+        color: text_color(submit_btnOn);
+        background: bkg_color(submit_btnOn);
+    }
+}
