@@ -1,216 +1,399 @@
-
-$background_colors:(
-    header: #EEE,
-    main: #FFF,
-    form: #F5F5F5,
-    submit_btnOff: #428BCA,
-    submit_btnOn: #FFF
+$background_colors: (
+  header: #eee,
+  main: #fff,
+  form: #f5f5f5,
+  submit_btnOff: #428bca,
+  submit_btnOn: #fff,
+  modal_bg: #eee,
+  modal_header: #428bca,
+  modal_btnOn: #428bca,
+  modal_btnOff: #fff,
+  modal_btn_border: #428bca,
 );
-$text_colors:(
-    title: #333,
-    sub_title: #999,
-    labels: #333,
-    submit_btnOff: #FFF,
-    submit_btnOn: #428BCA,
-    socials: #428BCA,
-    placeholder: #999,
-    replace: #428BCA
+$text_colors: (
+  title: #333,
+  sub_title: #999,
+  labels: #333,
+  submit_btnOff: #fff,
+  submit_btnOn: #428bca,
+  socials: #428bca,
+  placeholder: #999,
+  replace: #428bca,
+  modal_header: #fff,
+  modal_btnOn: #fff,
+  modal_btnOff: #428bca,
 );
-$border_color: #E3E3E3;
 
-@mixin media-big{                              // pentru a o folosi aici, in interiorul elementelor
-    @media screen and (min-width: 767px){
-        @content;
-    }
+$border_color: #e3e3e3;
+
+@mixin media-big {
+  // pentru a o folosi aici, in interiorul elementelor
+  @media screen and (min-width: 767px) {
+    @content;
+  }
 }
 
 // pentru a usura apelarea unei culori....
-@function bkg_color($key){
-    @return map-get($background_colors, $key)
-};
-
-@function text_color($key){
-    @return map-get($text-colors, $key)
-};
-
-
-@mixin flex_dir($direction){
-    display: flex;
-    flex-direction: $direction;
+@function bkg_color($key) {
+  @return map-get($background_colors, $key);
 }
 
-html{
-    box-sizing: border-box;
+@function text_color($key) {
+  @return map-get($text-colors, $key);
 }
 
-*, *::before, *::after{
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-    list-style: none;
-    box-sizing: inherit;
+@mixin flex_dir($direction) {
+  display: flex;
+  flex-direction: $direction;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: inherit;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.details > div, .message{
-    @include flex_dir(column);
-    
+.form-details > div,
+.message > div {
+  @include flex_dir(column);
 }
-.split {                              // *** Clasa utilitara pt a beneficia de puterea flex cu coloane dimensionate in mod egal 
-    @include flex_dir(column);
+.split {
+  // *** Clasa utilitara pt a beneficia de puterea flex cu coloane dimensionate in mod egal
+  @include flex_dir(column);
 
-    > * {
-        flex: 1;
-    }
+  > * {
+    flex: 1;
+  }
 
-    @include media-big{
-        @include flex_dir(row);
-    }
+  @include media-big {
+    @include flex_dir(row);
+  }
 }
-.container {                          // *** pentru a delimita intregul continut 
-    margin: 0 auto;
-    width: MIN(94%, 1350px);
+.container {
+  // *** pentru a delimita intregul continut
+  margin: 0 auto;
+  width: MIN(94%, 1350px);
 }
 
-h1, h2, h3 {
-    font-weight: 500;
+h1,
+h2,
+h3 {
+  font-weight: 500;
 }
 
 .header {
-    background: bkg_color(header);
-    padding: .5rem 0;
-    
-    .container {
-        // margin: 2rem;   // posibil sa-l modific aici pentru a mari paddingul in stanga ..sau o varianta ..
-    }
+  background: bkg_color(header);
+  padding: 0.5rem 0;
 
-    @include media-big{
-        // min-height: 180px;
-        min-height: 17vmin;
-        @include flex_dir(row);
-        align-items: center;
-        h1, h2{
-            display: inline-block;
-        }
-    }
+  .container {
+    // margin: 2rem;   // posibil sa-l modific aici pentru a mari paddingul in stanga ..sau o varianta ..
+  }
 
-    h1 {
-        font-size: ClamP(2.8rem, 4.5vw, 4.5rem);
-        color: text_color(title);
-    }
-
+  @include media-big {
+    // min-height: 180px;
+    min-height: 17vmin;
+    @include flex_dir(row);
+    align-items: center;
+    h1,
     h2 {
-        font-size: ClamP(1.8rem, 2.8vw, 2.8rem);
-        color: text_color(sub_title);
-        margin: .2em .4em;
+      display: inline-block;
     }
+  }
+
+  h1 {
+    font-size: ClamP(2.8rem, 4.5vw, 4.5rem);
+    color: text_color(title);
+  }
+
+  h2 {
+    font-size: ClamP(1.8rem, 2.8vw, 2.8rem);
+    color: text_color(sub_title);
+    margin: 0.2em 0.4em;
+  }
 }
 
 section {
+  form {
+    margin: 1.7em auto;
+    max-width: 900px;
+    background: bkg_color(form);
 
-    form {
-        margin: 1.7em auto;
-        max-width: 900px;
-        background: bkg_color(form);
+    > div {
+      margin: 0.5em;
 
-        > div {
-            margin: .5em;
-
-            @include media-big{
-                &:first-of-type{
-                    // margin-right: 1.5em;
-                    padding-right: 1.5em;
-                }
-            }
-            > div{
-                margin-bottom: .9em;
-            }
+      @include media-big {
+        &:first-of-type {
+          // margin-right: 1.5em;
+          padding-right: 1.5rem;
         }
-        label {
-            margin-bottom: .3em;
-            font-weight: 600;
-            font-size: 1rem;
-            color: text_color(labels);
-        }
-        input, textarea {
-            padding: .6rem 1rem;
-            outline: none;
-            color: text_color(replace);
-            font-size: 1rem;
-        }
-
-        input::placeholder, textarea::placeholder {
-            // font-weight: 600;
-            font-size: 1rem;
-            color: text_color(placeholder);
-        }
-
-        &, input, textarea {
-            border: 2px solid $border_color;
-            border-radius: .3em;
-        }
-
+      }
     }
-    h3 {
-        text-align: center;
-        // font-size: 1.4rem;
-        font-size: ClamP(1.2rem, 2.5vw, 1.4rem);
+    .form-control {
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.2rem;
+      position: relative;
+      overflow: hidden;
+
+      label {
+        margin-bottom: 0.3em;
+        font-weight: 600;
+        font-size: 1rem;
+        color: text_color(labels);
+      }
+      input,
+      textarea {
+        padding: 0.6rem 1rem;
+        outline: none;
+        color: text_color(replace);
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        // font-weight: 600;
+        font-size: 1rem;
+        color: text_color(placeholder);
+      }
+
+      i,
+      small {
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+        //tranzitionez visibility(pt ca vreau sa se aplice si cand se inlatura clasa error/success) + opacity
+        transition: all 0.15s ease-in-out;
+        z-index: 10;
+      }
+      i {
+        top: 36px;
+        right: 10px;
+      }
+      &.error i.fa-exclamation-circle {
+        visibility: visible;
+        color: rgba(233, 37, 37, 0.801);
+        opacity: 1; // pusa la fiecare in parte pt momentele in care se face schimba clasa elem. form-control (error cu success si viceversa)
+      }
+      &.success i.fa-check-circle {
+        opacity: 1; // pusa la fiecare in parte pt momentele in care se face schimba clasa elem. form-control (error cu success si viceversa)
+        visibility: visible;
+        color: rgba(29, 124, 29, 0.767);
+      }
+      small {
+        left: 0px;
+        bottom: 0px;
+        transform: translateX(
+          -100%
+        ); // 🢣 aplic tranzitie orizontala pe elem. ce contine eroarea
+      }
+      &.error small {
+        opacity: 1;
+        color: rgba(233, 37, 37, 0.801);
+        visibility: visible;
+      }
+      //   &.success small {      // nu vreau sa-mi afiseze textul in caz de succes
+      //     color: rgba(29, 124, 29, 0.87);
+      //     visibility: visible;
+      //   }
+      &.error i,
+      &.error small,
+      &.success i {
+        // opacity: 1;
+        transform: translateX(0);
+      }
+
+      &.error input,
+      &.error textarea {
+        border-color: rgba(233, 37, 37, 0.801);
+      }
+      &.success input,
+      &.success textarea {
+        border-color: rgba(29, 124, 29, 0.767);
+      }
     }
-    .social {
-        margin:.2rem auto;
-        max-width: 450px;
-        @include flex_dir(row);
-        justify-content: space-between;
-        padding-top: 1em;
-        border-top: 1px solid $border_color;
-
-        a {
-            color: text_color(socials);
-            position: relative;
-            transition: color .2s ease;
-
-            &::before {
-                content: '';
-                position: absolute;
-                width: 150%;
-                height: 150%;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: bkg_color(submit_btnOff);
-                border-radius: 1em;
-                z-index: -1;
-                transition: opacity .2s ease;
-                opacity: 0;
-            }
-
-            &:hover::before {
-                opacity: 1
-            }
-            &:hover {
-                color: text_color(submit_btnOff);
-            }
-        }
+    &,
+    input,
+    textarea {
+      border: 2px solid $border_color;
+      border-radius: 0.3em;
     }
+  }
+  h3 {
+    text-align: center;
+    // font-size: 1.4rem;
+    font-size: ClamP(1.2rem, 2.5vw, 1.4rem);
+  }
+  .social {
+    margin: 0.2rem auto;
+    max-width: 450px;
+    @include flex_dir(row);
+    justify-content: space-between;
+    padding-top: 1em;
+    border-top: 1px solid $border_color;
+
+    a {
+      color: text_color(socials);
+      position: relative;
+      transition: color 0.2s ease;
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 150%;
+        height: 150%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: bkg_color(submit_btnOff);
+        border-radius: 1em;
+        z-index: -1;
+        transition: opacity 0.2s ease;
+        opacity: 0;
+      }
+
+      &:hover::before {
+        opacity: 1;
+      }
+      &:hover {
+        color: text_color(submit_btnOff);
+      }
+    }
+  }
 }
 
-#submit_btn{
-    margin: 1.1em 0 0 auto;
-    padding: .5em .8em;
-    font-size: 1rem;
-    color: text_color(submit_btnOff);
-    background: bkg_color(submit_btnOff);
-    border: 2px solid bkg_color(submit_btnOff);
-    outline: none;
-    border-radius: .3em;
-    cursor: pointer;
-    transition: all .13s cubic-bezier(0, 0, 0.8, 1.31);
+.btn {
+  display: block;
+  font-size: 1rem;
+  border: 2px solid bkg_color(submit_btnOff);
+  outline: none;
+  cursor: pointer;
+  border-radius: 0.3em;
+  transition: all 0.13s cubic-bezier(0, 0, 0.8, 1.31);
+}
 
-    &:hover, &:focus {
-        color: text_color(submit_btnOn);
-        background: bkg_color(submit_btnOn);
+#submit_btn {
+  margin-left: auto;
+  padding: 0.5em 0.8em;
+  color: text_color(submit_btnOff);
+  background: bkg_color(submit_btnOff);
+
+  &:hover,
+  &:focus {
+    color: text_color(submit_btnOn);
+    background: bkg_color(submit_btnOn);
+  }
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.438);
+  backdrop-filter: blur(2px);
+  visibility: hidden;
+
+  &[show] {
+    visibility: visible;
+  }
+}
+.modal {
+  //   display: none;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 999;
+  background-color: bkg_color(modal_bg);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+  border-radius: 0.1rem;
+  width: Min(95%, 20rem);
+  overflow: hidden;
+  //adaug vizibilitatea aici si o tranzitionez pt a permite animatiei sa ruleze
+  visibility: hidden;
+  //   transition: visibility 1s ease; 🢣 nu o mai tranzitionez aici, am mutat-o pe animatie si pastrez ultima stare
+
+  &[show] {
+    animation: opening 0.4s ease-out forwards; // forwards 🢣 pastreaza ultima stare 🢣 tot ce este la 100%
+  }
+  //a trebuit sa adaug acest atribut pt a utiliza animatia
+  &[hide] {
+    animation: closing 0.4s ease-out forwards; // forwards 🢣 pt a-si pastra ultima stare (in cazul acesta opacity: 0 + transform:...)
+  }
+
+  .content {
+    h3,
+    p {
+      padding: 0.8rem;
     }
+    h3 {
+      background-color: bkg_color(modal_header);
+      color: text_color(modal_header);
+    }
+
+    button {
+      background-color: bkg_color(modal_btnOn);
+      border-radius: 0.2rem;
+      color: text_color(modal_btnOn);
+      padding: 0.2rem 2rem;
+      margin: 0.5rem 0.9rem 0.5rem auto;
+
+      &:hover,
+      &:focus {
+        //   color: text_color(modal_btnOff);
+        //   background: bkg_color(modal_btnOff);
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+@keyframes opening {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+    transform: translate(-50%, -150%);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, 60%);
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, 0%);
+  }
+}
+
+@keyframes closing {
+  0% {
+    visibility: visible;
+
+    opacity: 1;
+    transform: translate(-50%, 0%);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, 60%);
+  }
+  100% {
+    visibility: hidden;
+
+    opacity: 0;
+    transform: translate(-50%, -150%);
+  }
 }

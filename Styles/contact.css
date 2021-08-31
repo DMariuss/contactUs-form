@@ -3,7 +3,9 @@ html {
           box-sizing: border-box;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   text-decoration: none;
@@ -16,7 +18,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.details > div, .message {
+.form-details > div,
+.message > div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -59,13 +62,15 @@ body {
   width: MIN(94%, 1350px);
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: 500;
 }
 
 .header {
-  background: #EEE;
-  padding: .5rem 0;
+  background: #eee;
+  padding: 0.5rem 0;
 }
 
 @media screen and (min-width: 767px) {
@@ -82,7 +87,8 @@ h1, h2, h3 {
         -ms-flex-align: center;
             align-items: center;
   }
-  .header h1, .header h2 {
+  .header h1,
+  .header h2 {
     display: inline-block;
   }
 }
@@ -95,66 +101,134 @@ h1, h2, h3 {
 .header h2 {
   font-size: ClamP(1.8rem, 2.8vw, 2.8rem);
   color: #999;
-  margin: .2em .4em;
+  margin: 0.2em 0.4em;
 }
 
 section form {
   margin: 1.7em auto;
   max-width: 900px;
-  background: #F5F5F5;
+  background: #f5f5f5;
 }
 
 section form > div {
-  margin: .5em;
+  margin: 0.5em;
 }
 
 @media screen and (min-width: 767px) {
   section form > div:first-of-type {
-    padding-right: 1.5em;
+    padding-right: 1.5rem;
   }
 }
 
-section form > div > div {
-  margin-bottom: .9em;
+section form .form-control {
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.2rem;
+  position: relative;
+  overflow: hidden;
 }
 
-section form label {
-  margin-bottom: .3em;
+section form .form-control label {
+  margin-bottom: 0.3em;
   font-weight: 600;
   font-size: 1rem;
   color: #333;
 }
 
-section form input, section form textarea {
-  padding: .6rem 1rem;
+section form .form-control input,
+section form .form-control textarea {
+  padding: 0.6rem 1rem;
   outline: none;
-  color: #428BCA;
+  color: #428bca;
   font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
-section form input::-webkit-input-placeholder, section form textarea::-webkit-input-placeholder {
-  font-size: 1rem;
-  color: #999;
-}
-
-section form input:-ms-input-placeholder, section form textarea:-ms-input-placeholder {
+section form .form-control input::-webkit-input-placeholder,
+section form .form-control textarea::-webkit-input-placeholder {
   font-size: 1rem;
   color: #999;
 }
 
-section form input::-ms-input-placeholder, section form textarea::-ms-input-placeholder {
+section form .form-control input:-ms-input-placeholder,
+section form .form-control textarea:-ms-input-placeholder {
   font-size: 1rem;
   color: #999;
 }
 
-section form input::placeholder, section form textarea::placeholder {
+section form .form-control input::-ms-input-placeholder,
+section form .form-control textarea::-ms-input-placeholder {
   font-size: 1rem;
   color: #999;
 }
 
-section form, section form input, section form textarea {
-  border: 2px solid #E3E3E3;
-  border-radius: .3em;
+section form .form-control input::placeholder,
+section form .form-control textarea::placeholder {
+  font-size: 1rem;
+  color: #999;
+}
+
+section form .form-control i,
+section form .form-control small {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+  z-index: 10;
+}
+
+section form .form-control i {
+  top: 36px;
+  right: 10px;
+}
+
+section form .form-control.error i.fa-exclamation-circle {
+  visibility: visible;
+  color: rgba(233, 37, 37, 0.801);
+  opacity: 1;
+}
+
+section form .form-control.success i.fa-check-circle {
+  opacity: 1;
+  visibility: visible;
+  color: rgba(29, 124, 29, 0.767);
+}
+
+section form .form-control small {
+  left: 0px;
+  bottom: 0px;
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+}
+
+section form .form-control.error small {
+  opacity: 1;
+  color: rgba(233, 37, 37, 0.801);
+  visibility: visible;
+}
+
+section form .form-control.error i,
+section form .form-control.error small,
+section form .form-control.success i {
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+}
+
+section form .form-control.error input,
+section form .form-control.error textarea {
+  border-color: rgba(233, 37, 37, 0.801);
+}
+
+section form .form-control.success input,
+section form .form-control.success textarea {
+  border-color: rgba(29, 124, 29, 0.767);
+}
+
+section form,
+section form input,
+section form textarea {
+  border: 2px solid #e3e3e3;
+  border-radius: 0.3em;
 }
 
 section h3 {
@@ -163,7 +237,7 @@ section h3 {
 }
 
 section .social {
-  margin: .2rem auto;
+  margin: 0.2rem auto;
   max-width: 450px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -176,18 +250,18 @@ section .social {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding-top: 1em;
-  border-top: 1px solid #E3E3E3;
+  border-top: 1px solid #e3e3e3;
 }
 
 section .social a {
-  color: #428BCA;
+  color: #428bca;
   position: relative;
-  -webkit-transition: color .2s ease;
-  transition: color .2s ease;
+  -webkit-transition: color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 section .social a::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 150%;
   height: 150%;
@@ -195,11 +269,11 @@ section .social a::before {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  background: #428BCA;
+  background: #428bca;
   border-radius: 1em;
   z-index: -1;
-  -webkit-transition: opacity .2s ease;
-  transition: opacity .2s ease;
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
   opacity: 0;
 }
 
@@ -208,25 +282,174 @@ section .social a:hover::before {
 }
 
 section .social a:hover {
-  color: #FFF;
+  color: #fff;
 }
 
-#submit_btn {
-  margin: 1.1em 0 0 auto;
-  padding: .5em .8em;
+.btn {
+  display: block;
   font-size: 1rem;
-  color: #FFF;
-  background: #428BCA;
-  border: 2px solid #428BCA;
+  border: 2px solid #428bca;
   outline: none;
-  border-radius: .3em;
   cursor: pointer;
+  border-radius: 0.3em;
   -webkit-transition: all 0.13s cubic-bezier(0, 0, 0.8, 1.31);
   transition: all 0.13s cubic-bezier(0, 0, 0.8, 1.31);
 }
 
+#submit_btn {
+  margin-left: auto;
+  padding: 0.5em 0.8em;
+  color: #fff;
+  background: #428bca;
+}
+
 #submit_btn:hover, #submit_btn:focus {
-  color: #428BCA;
-  background: #FFF;
+  color: #428bca;
+  background: #fff;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.438);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+  visibility: hidden;
+}
+
+.backdrop[show] {
+  visibility: visible;
+}
+
+.modal {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
+  z-index: 999;
+  background-color: #eee;
+  -webkit-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+          box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+  border-radius: 0.1rem;
+  width: Min(95%, 20rem);
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.modal[show] {
+  -webkit-animation: opening 0.4s ease-out forwards;
+          animation: opening 0.4s ease-out forwards;
+}
+
+.modal[hide] {
+  -webkit-animation: closing 0.4s ease-out forwards;
+          animation: closing 0.4s ease-out forwards;
+}
+
+.modal .content h3,
+.modal .content p {
+  padding: 0.8rem;
+}
+
+.modal .content h3 {
+  background-color: #428bca;
+  color: #fff;
+}
+
+.modal .content button {
+  background-color: #428bca;
+  border-radius: 0.2rem;
+  color: #fff;
+  padding: 0.2rem 2rem;
+  margin: 0.5rem 0.9rem 0.5rem auto;
+}
+
+.modal .content button:hover, .modal .content button:focus {
+  opacity: 0.8;
+}
+
+@-webkit-keyframes opening {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transform: translate(-50%, -150%);
+            transform: translate(-50%, -150%);
+  }
+  50% {
+    opacity: 0.8;
+    -webkit-transform: translate(-50%, 60%);
+            transform: translate(-50%, 60%);
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: translate(-50%, 0%);
+            transform: translate(-50%, 0%);
+  }
+}
+
+@keyframes opening {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transform: translate(-50%, -150%);
+            transform: translate(-50%, -150%);
+  }
+  50% {
+    opacity: 0.8;
+    -webkit-transform: translate(-50%, 60%);
+            transform: translate(-50%, 60%);
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: translate(-50%, 0%);
+            transform: translate(-50%, 0%);
+  }
+}
+
+@-webkit-keyframes closing {
+  0% {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: translate(-50%, 0%);
+            transform: translate(-50%, 0%);
+  }
+  50% {
+    opacity: 0.8;
+    -webkit-transform: translate(-50%, 60%);
+            transform: translate(-50%, 60%);
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transform: translate(-50%, -150%);
+            transform: translate(-50%, -150%);
+  }
+}
+
+@keyframes closing {
+  0% {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: translate(-50%, 0%);
+            transform: translate(-50%, 0%);
+  }
+  50% {
+    opacity: 0.8;
+    -webkit-transform: translate(-50%, 60%);
+            transform: translate(-50%, 60%);
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transform: translate(-50%, -150%);
+            transform: translate(-50%, -150%);
+  }
 }
 /*# sourceMappingURL=contact.css.map */

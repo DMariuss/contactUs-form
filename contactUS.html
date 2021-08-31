@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../ContactUS/Styles/contact.css" />
     <title>Contact us page</title>
+    <!-- font awesome script for icons-->
+    <script
+      src="https://kit.fontawesome.com/cd4d07d06f.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <header class="header">
@@ -16,9 +21,9 @@
     </header>
     <section>
       <div class="container">
-        <form action="" class="split">
-          <div class="details">
-            <div>
+        <form action="" class="split" id="contact-form">
+          <div class="form-details">
+            <div class="form-control">
               <label for="name">Name</label>
               <input
                 type="text"
@@ -26,8 +31,11 @@
                 id="name"
                 placeholder="Enter name"
               />
+              <i class="fas fa-check-circle"></i>
+              <i class="fas fa-exclamation-circle"></i>
+              <small>Some error will be here!</small>
             </div>
-            <div>
+            <div class="form-control">
               <label for="email">Email</label>
               <input
                 type="email"
@@ -35,8 +43,11 @@
                 id="email"
                 placeholder="Enter email"
               />
+              <i class="fas fa-check-circle"></i>
+              <i class="fas fa-exclamation-circle"></i>
+              <small>Some error will be here!</small>
             </div>
-            <div>
+            <div class="form-control">
               <label for="subject">Subject</label>
               <input
                 type="text"
@@ -44,18 +55,26 @@
                 id="subject"
                 placeholder="Enter subject"
               />
+              <i class="fas fa-check-circle"></i>
+              <i class="fas fa-exclamation-circle"></i>
+              <small>Some error will be here!</small>
             </div>
           </div>
           <div class="message">
-            <label for="text_area">Message</label>
-            <textarea
-              name="textarea"
-              id="text_area"
-              cols="35"
-              rows="13"
-              placeholder="Message"
-            ></textarea>
-            <button id="submit_btn">Send Message</button>
+            <div class="form-control">
+              <label for="textarea">Message</label>
+              <textarea
+                name="textarea"
+                id="textarea"
+                cols="35"
+                rows="13"
+                placeholder="Message"
+              ></textarea>
+              <i class="fas fa-check-circle"></i>
+              <i class="fas fa-exclamation-circle"></i>
+              <small>Some error will be here!</small>
+            </div>
+            <button class="btn" id="submit_btn">Send Message</button>
           </div>
         </form>
         <h3>Or find us on social media</h3>
@@ -67,6 +86,16 @@
       </div>
     </section>
 
-    <script></script>
+    <div class="overlays">
+      <div class="backdrop"></div>
+      <div class="modal">
+        <div class="content">
+          <h3>Successfully sent</h3>
+          <p>Your message is on its way!</p>
+          <button class="btn" id="modal-action">ok</button>
+        </div>
+      </div>
+    </div>
+    <script src="./index.js"></script>
   </body>
 </html>
